@@ -1,6 +1,6 @@
 5.5.2026:
 
-Ben: Setup Github Repo
+Ben: Setup Github Repo IDE für Fast API initialisiert
 Elio: recherchieren "Backend" "Framework" installation fastapi, Setup Fastapi mit uvicorn, Tutorial Fastapi
 
 12.5.2026:
@@ -17,4 +17,5 @@ Elio:
 
 Ben:
 Elio:
+
 

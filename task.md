@@ -24,7 +24,7 @@ beziehen können.
 
 ## 3. FastAPI installieren
 
-- [ ] FastAPI installieren
+- [X] FastAPI installieren
 
 ---
 
@@ -45,9 +45,9 @@ beziehen können.
 
 ## 6. Optional: GitHub Repo
 
-- [ ] GitHub Repo eröffnen
-- [ ] Alle Teammitglieder einladen
-- [ ] Los gehts — töggälä :-)
+- [X] GitHub Repo eröffnen
+- [X] Alle Teammitglieder einladen
+- [X] Los gehts — töggälä :-)
 
 ---
 

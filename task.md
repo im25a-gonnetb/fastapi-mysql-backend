@@ -15,7 +15,6 @@ beziehen können.
 ---
 
 ## 2. FastAPI recherchieren
-
 - [ ] Wo kann FastAPI heruntergeladen werden?
 - [ ] Muss bei der Installation etwas Spezielles beachtet werden?
 - [ ] Wird beim Einsatz von FastAPI etwas Spezielles empfohlen?
@@ -30,8 +29,8 @@ beziehen können.
 
 ## 4. Datenbank einrichten
 
-- [ ] Datenmodell anschauen (Visio im Anhang)
-- [ ] Physische Datenbank mittels SQL-Skript erstellen (Skript im Anhang)
+- [X] Datenmodell anschauen (Visio im Anhang)
+- [X] Physische Datenbank mittels SQL-Skript erstellen (Skript im Anhang)
 
 ---
 

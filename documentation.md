@@ -14,7 +14,7 @@ DATABASE_URL=mysql+pymysql://USERNAME:PASSWORD@HOST/DBNAME
 
 **Windows:** Use `localhost` as HOST. MySQL Workbench runs on same machine.
 
-**WSL:** `localhost` points to WSL itself, not Windows. Get Windows host IP:
+**WSL:** `localhost` points to WSL itself, not Windows. Get Windows host IP:    
 ```bash
 cat /etc/resolv.conf | grep nameserver
 ```

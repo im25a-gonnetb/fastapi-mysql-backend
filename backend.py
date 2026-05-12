@@ -65,4 +65,3 @@ def execute_statement(req: StatementRequest):
         db.close()
         db.close()
 
-#Yeah, this whole thing... a bit messy. gave it to gbt twice to tell me what i could do to simplify, the code is 100% Human though, eventhough it ain't quite 100% from me, feel free to change things or just straight up rewrite it if it doesn't fit with other parts of the assignment

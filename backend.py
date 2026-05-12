@@ -29,6 +29,23 @@ def read_root():
     return {"message": "Hello World"}
 
 
+
+#IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//
+
+#This down here creates ONE Route, in this route, all kinds of statements can be executed which is -obviously,
+# very unsafe as anyone can just run drop database hence its not actually what we are supposed to do,
+# we are supposed to create individual routes which only permit once single -for example- SELECT, so,
+
+# to summarize, what we have:
+
+# One open route that allows everything. What we need: multiple routes that only allow ONE thing
+
+#What we need to do now:
+
+#Use the one Route we have as a template to create about 3 Billion more locked down, super duper, secure +++, perfectly pretty individual Routes
+
+#IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//
+
 # Here the complicated stuff, we create a route for POST(called statement)
 @app.post("/statement")
 def execute_statement(req: StatementRequest):

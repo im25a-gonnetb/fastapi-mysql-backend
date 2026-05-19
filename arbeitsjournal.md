@@ -11,7 +11,7 @@ Elio: Watched Fastapi tutorial and did research,Created first universal route,
 19.5.2026:
 
 Ben:
-Elio:
+Elio: started own detailed documentation on FastAPI, bug fixes,
 
 26.5.2026:
 

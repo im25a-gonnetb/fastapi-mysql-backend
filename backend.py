@@ -28,43 +28,6 @@ def read_root():
     return {"message": "Hello World"}
 
 
-
-#IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//
-
-#This down here creates ONE Route, in this route, all kinds of statements can be executed which is -obviously,
-# very unsafe as anyone can just run drop database hence its not actually what we are supposed to do,
-# we are supposed to create individual routes which only permit once single -for example- SELECT, so,
-
-# to summarize, what we have:
-
-# One open route that allows everything. What we need: multiple routes that only allow ONE thing
-
-#What we need to do now:
-
-#Use the one Route we have as a template to create about 3 Billion more locked down, super duper, secure +++, perfectly pretty individual Routes
-
-#IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//
-
-
-#this will be used as a copy paste sheet currently while i build the go super duper function below
-# Here the complicated stuff, we create a route for POST(called statement)
-@app.post("/statement")
-def execute_statement(req: StatementRequest):
-    db = SessionLocal()
-    try:
-        #runs the request
-        result = db.execute(text(req.statement))
-        rows = result.fetchall()
-
-        # Returns result, this shit was 6 rows until gbt told me im stupid and do it this way
-        return {
-            "result": [dict(row._mapping) for row in rows]
-        }
-
-    finally:
-        #No clue what this is for, but was in the tutorial and it won't work without so...
-        db.close()
-
 def create_route(path: str, fixed_statement: str):
     @app.post(path)
     def route_handler():
@@ -85,8 +48,10 @@ def create_route(path: str, fixed_statement: str):
     #no fucking clue what this is
     route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
 
-
-create_route("/select", "SELECT * FROM taskplaner.benuzer")
-create_route("/insert", "INSERT")
-create_route("/update", "UPDATE")
-create_route("/delete", "DELETE")
+# SELECT
+create_route("/select/benutzer",    "SELECT * FROM taskplaner.benutzer")
+create_route("/select/aufgabe",     "SELECT * FROM taskplaner.aufgabe")
+create_route("/select/kategorie",   "SELECT * FROM taskplaner.kategorie")
+create_route("/select/material",    "SELECT * FROM taskplaner.material")
+create_route("/select/prioritaet",  "SELECT * FROM taskplaner.prioritaet")
+create_route("/select/fortschritt", "SELECT * FROM taskplaner.fortschritt")

@@ -27,7 +27,7 @@ class StatementRequest(BaseModel):
 def read_root():
     return {"message": "Hello World"}
 
-
+#Creates prefix for SELECT Routes
 def create_route(path: str, fixed_statement: str):
     @app.post(path)
     def route_handler():
@@ -37,18 +37,19 @@ def create_route(path: str, fixed_statement: str):
             result = db.execute(text(fixed_statement))
             rows = result.fetchall()
 
-            # Returns result, this shit was 6 rows until gbt told me im stupid and do it this way
+            # Returns result
             return {
                 "result": [dict(row._mapping) for row in rows]
             }
 
         finally:
-            #No clue what this is for, but was in the tutorial and it won't work without so...
+
             db.close()
-    #no fucking clue what this is
+
+    #no fucking clue what this is #Ben'sShit
     route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
 
-# SELECT
+# All routes for SELECT
 create_route("/select/benutzer",    "SELECT * FROM taskplaner.benutzer")
 create_route("/select/aufgabe",     "SELECT * FROM taskplaner.aufgabe")
 create_route("/select/kategorie",   "SELECT * FROM taskplaner.kategorie")

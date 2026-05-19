@@ -24,3 +24,4 @@ Also grant MySQL access from WSL — run this in MySQL Workbench:
 GRANT ALL PRIVILEGES ON your_db.* TO 'root'@'%';
 FLUSH PRIVILEGES;
 ```
+

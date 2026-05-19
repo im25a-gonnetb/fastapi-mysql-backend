@@ -63,5 +63,3 @@ def execute_statement(req: StatementRequest):
     finally:
         #No clue what this is for, but was in the tutorial and it won't work without so...
         db.close()
-        db.close()
-

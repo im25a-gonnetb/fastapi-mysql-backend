@@ -5,8 +5,8 @@ Elio: Recherchieren "Backend" "Framework" installation fastapi, Setup Fastapi mi
 
 12.5.2026:
 
-Ben:bug fixes: removed identifier files, added db path to env file, allowed wsl to acess the db on windows
-Elio:
+Ben:bug fixes: removed identifier files, added db path to env file, allowed wsl to access the db on windows
+Elio: Watched Fastapi tutorial and did research,Created first universal route, 
 
 19.5.2026:
 
@@ -18,4 +18,6 @@ Elio:
 Ben:
 Elio:
 
+
+uvicorn backend:app --reload
 

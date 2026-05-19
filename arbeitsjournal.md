@@ -5,7 +5,7 @@ Elio: recherchieren "Backend" "Framework" installation fastapi, Setup Fastapi mi
 
 12.5.2026:
 
-Ben:bug fixes: removed identifier files, added db path to env file, allowed wsl to acess the db on windows
+Ben: bug fixes: removed identifier files, added db path to env file, allowed wsl to acess the db on windows
 Elio:
 
 19.5.2026:

@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 import os
-
 #Loads .env
 load_dotenv()
 
@@ -46,6 +45,8 @@ def read_root():
 
 #IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//IMPORTANT//
 
+
+#this will be used as a copy paste sheet currently while i build the go super duper function below
 # Here the complicated stuff, we create a route for POST(called statement)
 @app.post("/statement")
 def execute_statement(req: StatementRequest):
@@ -63,3 +64,29 @@ def execute_statement(req: StatementRequest):
     finally:
         #No clue what this is for, but was in the tutorial and it won't work without so...
         db.close()
+
+def create_route(path: str, fixed_statement: str):
+    @app.post(path)
+    def route_handler():
+        db = SessionLocal()
+        try:
+            #runs the request
+            result = db.execute(text(fixed_statement))
+            rows = result.fetchall()
+
+            # Returns result, this shit was 6 rows until gbt told me im stupid and do it this way
+            return {
+                "result": [dict(row._mapping) for row in rows]
+            }
+
+        finally:
+            #No clue what this is for, but was in the tutorial and it won't work without so...
+            db.close()
+    #no fucking clue what this is
+    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
+
+
+create_route("/select", "SELECT * FROM taskplaner.benuzer")
+create_route("/insert", "INSERT")
+create_route("/update", "UPDATE")
+create_route("/delete", "DELETE")

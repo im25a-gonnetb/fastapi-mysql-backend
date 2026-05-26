@@ -76,12 +76,12 @@ create_select_all("/select/prioritaet",  "SELECT * FROM taskplaner.prioritaet")
 create_select_all("/select/fortschritt", "SELECT * FROM taskplaner.fortschritt")
 
 # All routes for SELECT one
-create_select_one("/select/benutzer/{id}",    "SELECT * FROM taskplaner.benutzer WHERE id = :id")
-create_select_one("/select/aufgabe/{id}",     "SELECT * FROM taskplaner.aufgabe WHERE id = :id")
-create_select_one("/select/kategorie/{id}",   "SELECT * FROM taskplaner.kategorie WHERE id = :id")
-create_select_one("/select/material/{id}",    "SELECT * FROM taskplaner.material WHERE id = :id")
-create_select_one("/select/prioritaet/{id}",  "SELECT * FROM taskplaner.prioritaet WHERE id = :id")
-create_select_one("/select/fortschritt/{id}", "SELECT * FROM taskplaner.fortschritt WHERE id = :id")
+create_select_one("/select/benutzer/{id}",    "SELECT * FROM taskplaner.benutzer WHERE benutzerid = :id")
+create_select_one("/select/aufgabe/{id}",     "SELECT * FROM taskplaner.aufgabe WHERE aufgabeid = :id")
+create_select_one("/select/kategorie/{id}",   "SELECT * FROM taskplaner.kategorie WHERE kategorieid = :id")
+create_select_one("/select/material/{id}",    "SELECT * FROM taskplaner.material WHERE materialid = :id")
+create_select_one("/select/prioritaet/{id}",  "SELECT * FROM taskplaner.prioritaet WHERE PrioritaetID = :id")
+create_select_one("/select/fortschritt/{id}", "SELECT * FROM taskplaner.fortschritt WHERE fortschrittid = :id")
 
 # insert
 

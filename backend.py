@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
@@ -17,9 +17,7 @@ SessionLocal = sessionmaker(bind=engine)
 app = FastAPI()
 
 
-# Defines that requests(in our case the sql select thingy's) come in strings
-class StatementRequest(BaseModel):
-    statement: str
+
 
 
 # Test if server works, on http://127.0.0.1:8000/ it should say message: hello world
@@ -27,46 +25,66 @@ class StatementRequest(BaseModel):
 def read_root():
     return {"message": "Hello World"}
 
-#Creates prefix for SELECT Routes
-def create_route(path: str, fixed_statement: str, action: str):
+def create_select_all(path: str, statement: str):
     @app.post(path)
     def route_handler():
         db = SessionLocal()
         try:
-            #runs the request
-            result = db.execute(text(fixed_statement))
-            data = action(result, db)
-
-            # if data is a list of rows, format them
-            if isinstance(data, list):
-                return {"result": [dict(row._mapping) for row in data]}
-            else:
-                return {"result": "success"}
-
+            result = db.execute(text(statement))
+            return {"result": [dict(row._mapping) for row in result.fetchall()]}
         finally:
-
             db.close()
+    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
 
+def create_select_one(path: str, statement: str):
+    @app.post(path)
+    def route_handler(id: int):          # id is now properly captured
+        db = SessionLocal()
+        try:
+            result = db.execute(text(statement), {"id": id})
+            row = result.fetchone()
+            if row is None:
+                raise HTTPException(status_code=404, detail="Not found")
+            return {"result": dict(row._mapping)}
+        finally:
+            db.close()
+    
     #no fucking clue what this is #Ben's Shit
     route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
 
+def create_write_route(path: str, statement: str):
+    @app.post(path)
+    def route_handler(data: dict):  # receives the request body
+        db = SessionLocal()
+        try:
+            db.execute(text(statement), data)
+            db.commit()
+            return {"result": "success"}
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(status_code=500, detail=str(e))
+        finally:
+            db.close()
+    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
+
 # All routes for SELECT all
-create_route("/select/benutzer",    "SELECT * FROM taskplaner.benutzer", lambda r, db: r.fetchall())
-create_route("/select/aufgabe",     "SELECT * FROM taskplaner.aufgabe", lambda r, db: r.fetchall())
-create_route("/select/kategorie",   "SELECT * FROM taskplaner.kategorie", lambda r, db: r.fetchall())
-create_route("/select/material",    "SELECT * FROM taskplaner.material", lambda r, db: r.fetchall())
-create_route("/select/prioritaet",  "SELECT * FROM taskplaner.prioritaet", lambda r, db: r.fetchall())
-create_route("/select/fortschritt", "SELECT * FROM taskplaner.fortschritt", lambda r, db: r.fetchall())
+create_select_all("/select/benutzer",    "SELECT * FROM taskplaner.benutzer")
+create_select_all("/select/aufgabe",     "SELECT * FROM taskplaner.aufgabe")
+create_select_all("/select/kategorie",   "SELECT * FROM taskplaner.kategorie")
+create_select_all("/select/material",    "SELECT * FROM taskplaner.material")
+create_select_all("/select/prioritaet",  "SELECT * FROM taskplaner.prioritaet")
+create_select_all("/select/fortschritt", "SELECT * FROM taskplaner.fortschritt")
 
 # All routes for SELECT one
-create_route("/select/benutzer/{id}",    "SELECT * FROM taskplaner.benutzer WHERE id = :id", lambda r, db: r.fetchone())
-create_route("/select/aufgabe/{id}",     "SELECT * FROM taskplaner.aufgabe WHERE id = :id", lambda r, db: r.fetchone())
-create_route("/select/kategorie/{id}",   "SELECT * FROM taskplaner.kategorie WHERE id = :id", lambda r, db: r.fetchone())
-create_route("/select/material/{id}",    "SELECT * FROM taskplaner.material WHERE id = :id", lambda r, db: r.fetchone())
-create_route("/select/prioritaet/{id}",  "SELECT * FROM taskplaner.prioritaet WHERE id = :id", lambda r, db: r.fetchone())
-create_route("/select/fortschritt/{id}", "SELECT * FROM taskplaner.fortschritt WHERE id = :id", lambda r, db: r.fetchone())
+create_select_one("/select/benutzer/{id}",    "SELECT * FROM taskplaner.benutzer WHERE id = :id")
+create_select_one("/select/aufgabe/{id}",     "SELECT * FROM taskplaner.aufgabe WHERE id = :id")
+create_select_one("/select/kategorie/{id}",   "SELECT * FROM taskplaner.kategorie WHERE id = :id")
+create_select_one("/select/material/{id}",    "SELECT * FROM taskplaner.material WHERE id = :id")
+create_select_one("/select/prioritaet/{id}",  "SELECT * FROM taskplaner.prioritaet WHERE id = :id")
+create_select_one("/select/fortschritt/{id}", "SELECT * FROM taskplaner.fortschritt WHERE id = :id")
 
 # insert
+
 
 # update
 

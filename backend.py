@@ -84,7 +84,7 @@ create_select_one("/select/prioritaet/{id}",  "SELECT * FROM taskplaner.priorita
 create_select_one("/select/fortschritt/{id}", "SELECT * FROM taskplaner.fortschritt WHERE fortschrittid = :id")
 
 # insert
-
+create_write_route("/insert/benutzer",    "INSERT INTO taskplaner.benutzer (name, email, passwort) VALUES (:name, :email, :passwort)")
 
 # update
 

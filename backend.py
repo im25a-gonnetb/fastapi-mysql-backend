@@ -1,4 +1,4 @@
-#this is a fucking pies of shit code no one knows why it works the git tree is  more acustomed to the multiverse timeline of marvel instead of a linear flow. god s left this codebase. i pray for the survival of your sannity if you have to work on this project.
+#this is a fucking pies of shit code no one knows why it works the git tree is  more acustomed to the multiverse timeline of marvel instead of a linear flow. god and everything holy left this codebase. i pray for the survival of your sanity if you have to work on this project.
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel

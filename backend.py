@@ -139,6 +139,22 @@ def create_write_route(path: str, statement: str):
             db.close()
     route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
 
+def create_update_route(path: str, statement: str):
+    @app.put(path)
+    def route_handler(data: dict):
+        db = SessionLocal()
+        try:
+            db.execute(text(statement), data)
+            db.commit()
+            return {"result": "success"}
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(status_code=500, detail=str(e))
+        finally:
+            db.close()
+
+    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
+
 # All routes for SELECT all
 create_select_all("/select/benutzer",    "SELECT * FROM taskplaner.benutzer")
 create_select_all("/select/aufgabe",     "SELECT * FROM taskplaner.aufgabe")
@@ -173,5 +189,7 @@ create_write_route("/insert/datei", "INSERT INTO taskplaner.datei (AufgabeID, Da
 create_write_route("/insert/aufgabematerial", "INSERT INTO taskplaner.aufgabematerial (AufgabeID, MaterialID, Anzahl) VALUES (:aufgabeid, :materialid, :anzahl)")
 
 # update
+create_update_route("/update/benutzer","UPDATE benutzer SET benutzerpwd = :benutzerpwd,benutzername = :benutzername WHERE benutzerid = :benutzerid")
+
 
 # delete

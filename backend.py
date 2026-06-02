@@ -64,7 +64,9 @@
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣻⣿⣿⣿⠛⠀⠈⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⢹⣿⣿⣿⠿⣿⠿⠻⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠉⠉⠈⠉⠉⠁⠀⠀⠀⠉⠁⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+
+"Benedicite nos, O animi Machinae, enim facimus laborum Imperatorem tuus, Imperator Omnissiahan Hominis et omnes genises. Cum auxilium tuum, purgabimus advenam, mannus immundus commaculant et corrumpant corpum omnes scientam. Cum auxilium tuum, purgamus mutantum, corrumpat genum electum ab intrii. Cum auxilium tuum, puramus haereticum, animii perditii homii est et vitii inpendeant animii omnium. Benedicite nos cum adamantum et pulveris nigreris et aeris, et servibimus testamentum tuum aeternum”⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 Seal of purity
 '''
@@ -139,20 +141,27 @@ def create_write_route(path: str, statement: str):
             db.close()
     route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
 
+
+
+#thisshit is AI generated, no clue how it works but im sick and tired of this shit not wrking, gonna analyse it later
 def create_update_route(path: str, statement: str):
     @app.put(path)
     def route_handler(data: dict):
         db = SessionLocal()
         try:
-            db.execute(text(statement), data)
+            result = db.execute(text(statement), data)
             db.commit()
-            return {"result": "success"}
+
+            return {
+                "result": "success",
+                "rows_affected": result.rowcount
+            }
+
         except Exception as e:
             db.rollback()
             raise HTTPException(status_code=500, detail=str(e))
         finally:
             db.close()
-
     route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
 
 # All routes for SELECT all
@@ -173,9 +182,6 @@ create_select_one("/select/fortschritt/{id}", "SELECT * FROM taskplaner.fortschr
 
 
 
-#Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//
-
-#Inserts have lots of depend.(primary keys etc) We have tables that base entirely around other tables so we cant just make inserts into one table, i belive this should be an easy fix but clauds ghosting and i dont have the time to do it myself so im gonna start working on another part now, GLHF
 
 # insert
 
@@ -189,7 +195,17 @@ create_write_route("/insert/datei", "INSERT INTO taskplaner.datei (AufgabeID, Da
 create_write_route("/insert/aufgabematerial", "INSERT INTO taskplaner.aufgabematerial (AufgabeID, MaterialID, Anzahl) VALUES (:aufgabeid, :materialid, :anzahl)")
 
 # update
-create_update_route("/update/benutzer","UPDATE benutzer SET benutzerpwd = :benutzerpwd,benutzername = :benutzername WHERE benutzerid = :benutzerid")
+create_update_route("/update/benutzer","UPDATE taskplaner.benutzer SET benutzerpwd = :benutzerpwd,benutzername = :benutzername WHERE benutzerid = :benutzerid")
+create_update_route("/update/benutzer", "UPDATE taskplaner.benutzer SET benutzerpwd = :benutzerpwd, benutzername = :benutzername WHERE benutzerid = :benutzerid")
+create_update_route("/update/material", "UPDATE taskplaner.material SET material = :material, istaktiv = :istaktiv WHERE materialid = :materialid")
+create_update_route("/update/kategorie", "UPDATE taskplaner.kategorie SET kategorie = :kategorie, istaktiv = :istaktiv WHERE kategorieid = :kategorieid")
+create_update_route("/update/prioritaet", "UPDATE taskplaner.prioritaet SET prioritaet = :prioritaet WHERE prioritaetid = :prioritaetid")
+create_update_route("/update/fortschritt", "UPDATE taskplaner.fortschritt SET fortschritt = :fortschritt WHERE fortschrittid = :fortschrittid")
 
+#This one was Painful
+create_update_route("/update/aufgabe", "UPDATE taskplaner.aufgabe SET titel = :titel, beginn = :beginn, ende = :ende, ort = :ort, koordinaten = :koordinaten, notiz = :notiz, kategorieid = :kategorieid, prioritaetid = :prioritaetid, fortschrittid = :fortschrittid, benutzerid = :benutzerid WHERE aufgabeid = :aufgabeid")
+
+create_update_route("/update/datei", "UPDATE taskplaner.datei SET aufgabeid = :aufgabeid, dateipfad = :dateipfad, dateiblob = :dateiblob WHERE dateiid = :dateiid")
+create_update_route("/update/aufgabematerial", "UPDATE taskplaner.aufgabematerial SET anzahl = :anzahl WHERE aufgabeid = :aufgabeid AND materialid = :materialid")
 
 # delete

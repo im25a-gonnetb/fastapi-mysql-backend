@@ -155,12 +155,24 @@ create_select_one("/select/material/{id}",    "SELECT * FROM taskplaner.material
 create_select_one("/select/prioritaet/{id}",  "SELECT * FROM taskplaner.prioritaet WHERE PrioritaetID = :id")
 create_select_one("/select/fortschritt/{id}", "SELECT * FROM taskplaner.fortschritt WHERE fortschrittid = :id")
 
+
+
+#Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//Problem//
+
+#Inserts have lots of depend.(primary keys etc) We have tables that base entirely around other tables so we cant just make inserts into one table, i belive this should be an easy fix but clauds ghosting and i dont have the time to do it myself so im gonna start working on another part now, GLHF
+
 # insert
-create_write_route("/insert/benutzer",    "INSERT INTO taskplaner.benutzer (BenutzerID, benutzername, benutzerpwd) VALUES (:benutzerid, :benutzername, :benutzerpwd)")
+
+create_write_route("/insert/benutzer",    "INSERT INTO taskplaner.benutzer (benutzername, benutzerpwd) VALUES (:benutzername, :benutzerpwd)")
+
+#Not done yet:
+#create_write_route("/insert/material", "INSERT INTO taskplaner.material (Material, IstAktiv) VALUES (:material, :istaktiv)")
+#create_write_route("/insert/kategorie", "INSERT INTO taskplaner.kategorie (Kategorie, IstAktiv) VALUES (:kategorie, :istaktiv)")
+#create_write_route("/insert/prioritaet", "INSERT INTO taskplaner.prioritaet (Prioritaet) VALUES (:prioritaet)")
+#create_write_route("/insert/aufgabe", "INSERT INTO taskplaner.aufgabe (Titel, Beginn, Ende, Ort, Koordinaten, Notiz, KategorieID, PrioritaetID, FortschrittID, BenutzerID) VALUES (:titel, :beginn, :ende, :ort, :koordinaten, :notiz, :kategorieid, :prioritaetid, :fortschrittid, :benutzerid)")
+#create_write_route("/insert/datei", "INSERT INTO taskplaner.datei (AufgabeID, Dateipfad, DateiBLOB) VALUES (:aufgabeid, :dateipfad, :dateiblob)")
+#create_write_route("/insert/aufgabenmaterial", "INSERT INTO taskplaner.aufgabenmaterial (AufgabeID, MaterialID, Anzahl) VALUES (:aufgabeid, :materialid, :anzahl)")
 
 # update
 
 # delete
-
-
-

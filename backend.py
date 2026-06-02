@@ -164,14 +164,13 @@ create_select_one("/select/fortschritt/{id}", "SELECT * FROM taskplaner.fortschr
 # insert
 
 create_write_route("/insert/benutzer",    "INSERT INTO taskplaner.benutzer (benutzername, benutzerpwd) VALUES (:benutzername, :benutzerpwd)")
-
-#Not done yet:
-#create_write_route("/insert/material", "INSERT INTO taskplaner.material (Material, IstAktiv) VALUES (:material, :istaktiv)")
-#create_write_route("/insert/kategorie", "INSERT INTO taskplaner.kategorie (Kategorie, IstAktiv) VALUES (:kategorie, :istaktiv)")
-#create_write_route("/insert/prioritaet", "INSERT INTO taskplaner.prioritaet (Prioritaet) VALUES (:prioritaet)")
-#create_write_route("/insert/aufgabe", "INSERT INTO taskplaner.aufgabe (Titel, Beginn, Ende, Ort, Koordinaten, Notiz, KategorieID, PrioritaetID, FortschrittID, BenutzerID) VALUES (:titel, :beginn, :ende, :ort, :koordinaten, :notiz, :kategorieid, :prioritaetid, :fortschrittid, :benutzerid)")
-#create_write_route("/insert/datei", "INSERT INTO taskplaner.datei (AufgabeID, Dateipfad, DateiBLOB) VALUES (:aufgabeid, :dateipfad, :dateiblob)")
-#create_write_route("/insert/aufgabenmaterial", "INSERT INTO taskplaner.aufgabenmaterial (AufgabeID, MaterialID, Anzahl) VALUES (:aufgabeid, :materialid, :anzahl)")
+create_write_route("/insert/material", "INSERT INTO taskplaner.material (Material, IstAktiv) VALUES (:material, :istaktiv)")
+create_write_route("/insert/kategorie", "INSERT INTO taskplaner.kategorie (Kategorie, IstAktiv) VALUES (:kategorie, :istaktiv)")
+create_write_route("/insert/prioritaet", "INSERT INTO taskplaner.prioritaet (Prioritaet) VALUES (:prioritaet)")
+create_write_route("/insert/aufgabe", "INSERT INTO taskplaner.aufgabe (Titel, Beginn, Ende, Ort, Koordinaten, Notiz, KategorieID, PrioritaetID, FortschrittID, BenutzerID) VALUES (:titel, :beginn, :ende, :ort, :koordinaten, :notiz, :kategorieid, :prioritaetid, :fortschrittid, :benutzerid)")
+create_write_route("/insert/datei", "INSERT INTO taskplaner.datei (AufgabeID, Dateipfad, DateiBLOB) VALUES (:aufgabeid, :dateipfad, :dateiblob)")
+#Gives 404 Error, D0nt Know why, GLHF
+create_write_route("/insert/aufgabematerial", "INSERT INTO taskplaner.aufgabematerial (AufgabeID, MaterialID, Anzahl) VALUES (:aufgabeid, :materialid, :anzahl)")
 
 # update
 

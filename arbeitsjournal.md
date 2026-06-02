@@ -20,9 +20,13 @@ Elio: started own detailed documentation on FastAPI, bug fixes,
 
 26.5.2026:
 
-Ben: Fixed more bugs with WSL, created route for Update
+Ben: Fixed more bugs with WSL, created route for Insert
 Elio: finished personal docu, Started cleaning up official Documentation 
 
+2.6.26
 
-uvicorn backend:app --reload
+Ben:
+Elio: Used Bens first insert route to create the rest, Added all update routes, bugfixed for about 10'000'000 Hours and still didnt get to make everything work 
+
+
 

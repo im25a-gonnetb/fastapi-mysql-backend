@@ -25,3 +25,5 @@ GRANT ALL PRIVILEGES ON your_db.* TO 'root'@'%';
 FLUSH PRIVILEGES;
 ```
 
+
+uvicorn backend:app --reload

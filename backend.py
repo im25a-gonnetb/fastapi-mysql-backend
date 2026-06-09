@@ -131,7 +131,7 @@ def create_write_route(path: str, statement: str):
     def route_handler(data: dict):  # receives the request body
         db = SessionLocal()
         try:
-            db.execute(text(statement), data)
+            resutlt = db.execute(text(statement), data)
             db.commit()
             return {"result": "success"}
         except Exception as e:
@@ -142,8 +142,6 @@ def create_write_route(path: str, statement: str):
     route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
 
 
-
-#thisshit is AI generated, no clue how it works but im sick and tired of this shit not wrking, gonna analyse it later
 def create_update_route(path: str, statement: str):
     @app.put(path)
     def route_handler(data: dict):
@@ -163,6 +161,28 @@ def create_update_route(path: str, statement: str):
         finally:
             db.close()
     route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
+
+def create_delete_route(path: str, statement: str):
+    @app.put(path)
+    def route_handler(data: dict):
+        db = SessionLocal()
+        try:
+            result = db.execute(text(statement), data)
+            db.commit()
+
+            return {
+                "result": "success",
+                "rows_affected": result.rowcount
+            }
+
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(status_code=500, detail=str(e))
+        finally:
+            db.close()
+    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
+
+
 
 # All routes for SELECT all
 create_select_all("/select/benutzer",    "SELECT * FROM taskplaner.benutzer")
@@ -201,11 +221,26 @@ create_update_route("/update/material", "UPDATE taskplaner.material SET material
 create_update_route("/update/kategorie", "UPDATE taskplaner.kategorie SET kategorie = :kategorie, istaktiv = :istaktiv WHERE kategorieid = :kategorieid")
 create_update_route("/update/prioritaet", "UPDATE taskplaner.prioritaet SET prioritaet = :prioritaet WHERE prioritaetid = :prioritaetid")
 create_update_route("/update/fortschritt", "UPDATE taskplaner.fortschritt SET fortschritt = :fortschritt WHERE fortschrittid = :fortschrittid")
-
-#This one was Painful
 create_update_route("/update/aufgabe", "UPDATE taskplaner.aufgabe SET titel = :titel, beginn = :beginn, ende = :ende, ort = :ort, koordinaten = :koordinaten, notiz = :notiz, kategorieid = :kategorieid, prioritaetid = :prioritaetid, fortschrittid = :fortschrittid, benutzerid = :benutzerid WHERE aufgabeid = :aufgabeid")
-
 create_update_route("/update/datei", "UPDATE taskplaner.datei SET aufgabeid = :aufgabeid, dateipfad = :dateipfad, dateiblob = :dateiblob WHERE dateiid = :dateiid")
 create_update_route("/update/aufgabematerial", "UPDATE taskplaner.aufgabematerial SET anzahl = :anzahl WHERE aufgabeid = :aufgabeid AND materialid = :materialid")
 
 # delete
+create_update_route("/update/benutzer","DELETE taskplaner.benutzer SET benutzerpwd = :benutzerpwd,benutzername = :benutzername WHERE benutzerid = :benutzerid")
+create_update_route("/update/benutzer", "DELETE taskplaner.benutzer SET benutzerpwd = :benutzerpwd, benutzername = :benutzername WHERE benutzerid = :benutzerid")
+create_update_route("/update/material", "DELETE taskplaner.material SET material = :material, istaktiv = :istaktiv WHERE materialid = :materialid")
+create_update_route("/update/kategorie", "DELETE taskplaner.kategorie SET kategorie = :kategorie, istaktiv = :istaktiv WHERE kategorieid = :kategorieid")
+create_update_route("/update/prioritaet", "DELETE taskplaner.prioritaet SET prioritaet = :prioritaet WHERE prioritaetid = :prioritaetid")
+create_update_route("/update/fortschritt", "DELETE taskplaner.fortschritt SET fortschritt = :fortschritt WHERE fortschrittid = :fortschrittid")
+create_update_route("/update/aufgabe", "DELETE taskplaner.aufgabe SET titel = :titel, beginn = :beginn, ende = :ende, ort = :ort, koordinaten = :koordinaten, notiz = :notiz, kategorieid = :kategorieid, prioritaetid = :prioritaetid, fortschrittid = :fortschrittid, benutzerid = :benutzerid WHERE aufgabeid = :aufgabeid")
+create_update_route("/update/datei", "DELETE taskplaner.datei SET aufgabeid = :aufgabeid, dateipfad = :dateipfad, dateiblob = :dateiblob WHERE dateiid = :dateiid")
+create_update_route("/update/aufgabematerial", "DELETE taskplaner.aufgabematerial SET anzahl = :anzahl WHERE aufgabeid = :aufgabeid AND materialid = :materialid")
+
+
+
+
+
+
+
+
+

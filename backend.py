@@ -132,7 +132,7 @@ def create_update_route(path: str, statement: str):
     def route_handler(data: dict = Body(...)):
         db = SessionLocal()
         try:
-            result = db.execute(text(statement), data)
+            db.execute(text(statement), data)
             db.commit()
 
             return {
@@ -226,3 +226,4 @@ create_delete_route("/delete/aufgabematerial", "DELETE FROM taskplaner.aufgabema
 
 #view
 create_select_view("/select/benutzer", "SELECT * FROM benutzer_view")
+

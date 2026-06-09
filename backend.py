@@ -227,4 +227,3 @@ create_delete_route("/delete/aufgabematerial", "DELETE FROM taskplaner.aufgabema
 
 #view
 create_select_view("/select/benutzer", "SELECT * FROM benutzer_view")
-

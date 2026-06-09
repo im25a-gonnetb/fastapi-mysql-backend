@@ -226,4 +226,13 @@ create_update_route("/update/datei", "UPDATE taskplaner.datei SET aufgabeid = :a
 create_update_route("/update/aufgabematerial", "UPDATE taskplaner.aufgabematerial SET anzahl = :anzahl WHERE aufgabeid = :aufgabeid AND materialid = :materialid")
 
 # delete
+create_delete_route("/delete/benutzer", "DELETE FROM taskplaner.benutzer WHERE benutzerid = :benutzerid")
+create_delete_route("/delete/material", "DELETE FROM taskplaner.material WHERE materialid = :materialid")
+create_delete_route("/delete/kategorie", "DELETE FROM taskplaner.kategorie WHERE kategorieid = :kategorieid")
+create_delete_route("/delete/prioritaet", "DELETE FROM taskplaner.prioritaet WHERE prioritaetid = :prioritaetid")
+create_delete_route("/delete/fortschritt", "DELETE FROM taskplaner.fortschritt WHERE fortschrittid = :fortschrittid")
+create_delete_route("/delete/aufgabe", "DELETE FROM taskplaner.aufgabe WHERE aufgabeid = :aufgabeid")
+create_delete_route("/delete/datei", "DELETE FROM taskplaner.datei WHERE dateiid = :dateiid")
+create_delete_route("/delete/aufgabematerial", "DELETE FROM taskplaner.aufgabematerial WHERE aufgabeid = :aufgabeid AND materialid = :materialid")
+
 

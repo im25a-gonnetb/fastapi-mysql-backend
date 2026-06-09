@@ -73,7 +73,8 @@ Seal of purity
 
 
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from fastapi import Path
+from fastapi import Body
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
@@ -112,7 +113,7 @@ def create_select_all(path: str, statement: str):
 
 def create_select_one(path: str, statement: str):
     @app.post(path)
-    def route_handler(id: int):          # id is now properly captured
+    def route_handler(id: int = Path(...)):          # id is now properly captured
         db = SessionLocal()
         try:
             result = db.execute(text(statement), {"id": id})
@@ -128,10 +129,10 @@ def create_select_one(path: str, statement: str):
 
 def create_write_route(path: str, statement: str):
     @app.post(path)
-    def route_handler(data: dict):  # receives the request body
+    def route_handler(data: dict = Body(...)):  # receives the request body
         db = SessionLocal()
         try:
-            resutlt = db.execute(text(statement), data)
+            result = db.execute(text(statement), data)
             db.commit()
             return {"result": "success"}
         except Exception as e:
@@ -144,7 +145,7 @@ def create_write_route(path: str, statement: str):
 
 def create_update_route(path: str, statement: str):
     @app.put(path)
-    def route_handler(data: dict):
+    def route_handler(data: dict = Body(...)):
         db = SessionLocal()
         try:
             result = db.execute(text(statement), data)
@@ -163,7 +164,7 @@ def create_update_route(path: str, statement: str):
     route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
 
 def create_delete_route(path: str, statement: str):
-    @app.put(path)
+    @app.delete(path)
     def route_handler(data: dict):
         db = SessionLocal()
         try:
@@ -216,7 +217,6 @@ create_write_route("/insert/aufgabematerial", "INSERT INTO taskplaner.aufgabemat
 
 # update
 create_update_route("/update/benutzer","UPDATE taskplaner.benutzer SET benutzerpwd = :benutzerpwd,benutzername = :benutzername WHERE benutzerid = :benutzerid")
-create_update_route("/update/benutzer", "UPDATE taskplaner.benutzer SET benutzerpwd = :benutzerpwd, benutzername = :benutzername WHERE benutzerid = :benutzerid")
 create_update_route("/update/material", "UPDATE taskplaner.material SET material = :material, istaktiv = :istaktiv WHERE materialid = :materialid")
 create_update_route("/update/kategorie", "UPDATE taskplaner.kategorie SET kategorie = :kategorie, istaktiv = :istaktiv WHERE kategorieid = :kategorieid")
 create_update_route("/update/prioritaet", "UPDATE taskplaner.prioritaet SET prioritaet = :prioritaet WHERE prioritaetid = :prioritaetid")
@@ -226,21 +226,4 @@ create_update_route("/update/datei", "UPDATE taskplaner.datei SET aufgabeid = :a
 create_update_route("/update/aufgabematerial", "UPDATE taskplaner.aufgabematerial SET anzahl = :anzahl WHERE aufgabeid = :aufgabeid AND materialid = :materialid")
 
 # delete
-create_update_route("/update/benutzer","DELETE taskplaner.benutzer SET benutzerpwd = :benutzerpwd,benutzername = :benutzername WHERE benutzerid = :benutzerid")
-create_update_route("/update/benutzer", "DELETE taskplaner.benutzer SET benutzerpwd = :benutzerpwd, benutzername = :benutzername WHERE benutzerid = :benutzerid")
-create_update_route("/update/material", "DELETE taskplaner.material SET material = :material, istaktiv = :istaktiv WHERE materialid = :materialid")
-create_update_route("/update/kategorie", "DELETE taskplaner.kategorie SET kategorie = :kategorie, istaktiv = :istaktiv WHERE kategorieid = :kategorieid")
-create_update_route("/update/prioritaet", "DELETE taskplaner.prioritaet SET prioritaet = :prioritaet WHERE prioritaetid = :prioritaetid")
-create_update_route("/update/fortschritt", "DELETE taskplaner.fortschritt SET fortschritt = :fortschritt WHERE fortschrittid = :fortschrittid")
-create_update_route("/update/aufgabe", "DELETE taskplaner.aufgabe SET titel = :titel, beginn = :beginn, ende = :ende, ort = :ort, koordinaten = :koordinaten, notiz = :notiz, kategorieid = :kategorieid, prioritaetid = :prioritaetid, fortschrittid = :fortschrittid, benutzerid = :benutzerid WHERE aufgabeid = :aufgabeid")
-create_update_route("/update/datei", "DELETE taskplaner.datei SET aufgabeid = :aufgabeid, dateipfad = :dateipfad, dateiblob = :dateiblob WHERE dateiid = :dateiid")
-create_update_route("/update/aufgabematerial", "DELETE taskplaner.aufgabematerial SET anzahl = :anzahl WHERE aufgabeid = :aufgabeid AND materialid = :materialid")
-
-
-
-
-
-
-
-
 

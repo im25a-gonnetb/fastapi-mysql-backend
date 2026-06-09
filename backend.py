@@ -183,6 +183,16 @@ def create_delete_route(path: str, statement: str):
             db.close()
     route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
 
+def create_select_view(path: str, statement: str):
+    @app.get(path)
+    def route_handler():
+        db = SessionLocal()
+        try:
+            result = db.execute(text(statement))
+            return {"result": [dict(row._mapping) for row in result.fetchall()]}
+        finally:
+            db.close()
+    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
 
 
 # All routes for SELECT all
@@ -235,4 +245,5 @@ create_delete_route("/delete/aufgabe", "DELETE FROM taskplaner.aufgabe WHERE auf
 create_delete_route("/delete/datei", "DELETE FROM taskplaner.datei WHERE dateiid = :dateiid")
 create_delete_route("/delete/aufgabematerial", "DELETE FROM taskplaner.aufgabematerial WHERE aufgabeid = :aufgabeid AND materialid = :materialid")
 
-
+#view
+create_select_view("/select/benutzer", "SELECT * FROM benutzer_view")

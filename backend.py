@@ -169,6 +169,7 @@ def create_delete_route(path: str, statement: str):
             db.close()
     route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
 
+#Creates SELECT view
 def create_select_view(path: str, statement: str):
     @app.get(path)
     def route_handler():
@@ -179,6 +180,24 @@ def create_select_view(path: str, statement: str):
         finally:
             db.close()
     route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
+
+#Creates stored procedure
+def create_procedure_route(path: str, call_statement: str):
+    @app.post(path)
+    def route_handler(data: dict = Body(default={})):
+        db = SessionLocal()
+        try:
+            result = db.execute(text(call_statement), data)
+            rows = result.fetchall()
+            db.commit()
+            return {"result": [dict(row._mapping) for row in rows]}
+        except Exception as e:
+            db.rollback()
+            raise HTTPException(status_code=500, detail=str(e))
+        finally:
+            db.close()
+    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
+
 
 
 # All routes for SELECT all
@@ -229,3 +248,40 @@ create_delete_route("/delete/aufgabematerial", "DELETE FROM taskplaner.aufgabema
 #view
 create_select_view("/select/benutzer", "SELECT * FROM benutzer_view")
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#stored procedure
+create_procedure_route("/stored/loeschen", "CALL loeschen(:aufgabeid)")
+create_procedure_route("/stored/loeschenmaterial", "CALL loeschenmaterial(:aufgabeid, :materialid)")
+create_procedure_route("/stored/loeschenbenutzer", "CALL loeschenbenutzer(:benutzerid)")
+create_procedure_route("/stored/loeschenmaterialbenutzer", "CALL loeschenmaterialbenutzer(:materialid, :benutzerid)")
+create_procedure_route("/stored/loeschenkategorie", "CALL loeschenkategorie(:kategorieid)")
+create_procedure_route("/stored/loeschenfortschritt", "CALL loeschenfortschritt(:fortschrittid)")
+create_procedure_route("/stored/loeschenprioritaet", "CALL loeschenprioritaet(:prioritaetid)")

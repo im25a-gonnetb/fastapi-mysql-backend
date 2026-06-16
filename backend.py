@@ -69,8 +69,7 @@ def create_update_route(path: str, statement: str):
             db.commit()
 
             return {
-                "result": "success",
-                "rows_affected": result.rowcount
+                "result": "success"
             }
         except Exception as e:
             db.rollback()

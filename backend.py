@@ -246,42 +246,7 @@ create_delete_route("/delete/datei", "DELETE FROM taskplaner.datei WHERE dateiid
 create_delete_route("/delete/aufgabematerial", "DELETE FROM taskplaner.aufgabematerial WHERE aufgabeid = :aufgabeid AND materialid = :materialid")
 
 #view
-create_select_view("/select/benutzer", "SELECT * FROM benutzer_view")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+create_select_view("/view/aufgabendetails", "SELECT * FROM taskplaner.AufgabenDetails")
 
 #stored procedure
-create_procedure_route("/stored/loeschen", "CALL loeschen(:aufgabeid)")
-create_procedure_route("/stored/loeschenmaterial", "CALL loeschenmaterial(:aufgabeid, :materialid)")
-create_procedure_route("/stored/loeschenbenutzer", "CALL loeschenbenutzer(:benutzerid)")
-create_procedure_route("/stored/loeschenmaterialbenutzer", "CALL loeschenmaterialbenutzer(:materialid, :benutzerid)")
-create_procedure_route("/stored/loeschenkategorie", "CALL loeschenkategorie(:kategorieid)")
-create_procedure_route("/stored/loeschenfortschritt", "CALL loeschenfortschritt(:fortschrittid)")
-create_procedure_route("/stored/loeschenprioritaet", "CALL loeschenprioritaet(:prioritaetid)")
+create_procedure_route("/procedure/update-fortschritt", "call UpdateFortschritt(:aufgabe_id, :fortschritt_id)")

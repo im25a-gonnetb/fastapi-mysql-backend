@@ -52,6 +52,6 @@
 
 ## 16.06.2026
 
-**Ben:** `create_procedure_route()`-Funktion implementiert für Stored-Procedure-Aufrufe als POST-Route. Drei Stored Procedures angebunden: `loeschen`, `loeschenmaterial`, `loeschenbenutzer`.
+**Ben:** `create_procedure_route()`-Funktion implementiert für Stored-Procedure-Aufrufe als POST-Route. Sieben Stored Procedures angebunden (`loeschen`, `loeschenmaterial`, `loeschenbenutzer`, `loeschenmaterialbenutzer`, `loeschenkategorie`, `loeschenfortschritt`, `loeschenprioritaet`). Kommentar zu `create_select_view()` ergänzt. Arbeitsjournal anhand des Git-Changelogs nachgeführt und `documentation.md` bereinigt.
 
-**Elio:** -
+**Elio:** Benutzer-View durch `AufgabenDetails`-View ersetzt (`/view/aufgabendetails`). Alle Delete-Stored-Procedures entfernt und durch eine einzelne `UpdateFortschritt`-Procedure ersetzt (`/procedure/update-fortschritt`). Kleines Cleanup in `create_update_route()`, `rows_affected` aus der Response entfernt.

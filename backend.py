@@ -1,6 +1,8 @@
 '''
 MYSQL Backend for Uvicorn
 '''
+
+#Imports
 from fastapi import FastAPI, HTTPException, Path, Body
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
@@ -18,114 +20,118 @@ app = FastAPI()
 
 #Creates Select Path framework
 def create_select_all(path: str, statement: str):
-    @app.post(path)
+    @app.post(path) #registers thing
     def route_handler():
         db = SessionLocal()
         try:
-            result = db.execute(text(statement))
-            return {"result": [dict(row._mapping) for row in result.fetchall()]}
+            result = db.execute(text(statement)) #text(statement) tells the program that statement is a completely written piece of SQL db.execute executes it and stores the result/reply in result
+            return {"result": [dict(row._mapping) for row in result.fetchall()]} #formats result to be able to be displayed in web ui nicely (formats mysql to python dict)
         finally:
-            db.close()
-    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
+            db.close() #closes db
+    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}" #avoids name collisions
 
 #Creates Select Path framework for singular(...)
 def create_select_one(path: str, statement: str):
-    @app.post(path)
-    def route_handler(id: int = Path(...)):          # id is now properly captured
+    @app.post(path) #registers thing
+    def route_handler(id: int = Path(...)): #id taken from url path (the {id} part), Path(...) makes it required
         db = SessionLocal()
         try:
-            result = db.execute(text(statement), {"id": id})
-            row = result.fetchone()
-            if row is None:
-                raise HTTPException(status_code=404, detail="Not found")
-            return {"result": dict(row._mapping)}
+            result = db.execute(text(statement), {"id": id}) #runs the SQL and swaps :id in the statement for the actual id value (safe, no SQL injection)
+            row = result.fetchone() #grabs just the first matching row
+            if row is None: #nothing found with that id
+                raise HTTPException(status_code=404, detail="Not found") #sends back a 404 error instead of crashing
+            return {"result": dict(row._mapping)} #formats the one row to python dict for the web ui
         finally:
-            db.close()
-    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
+            db.close() #closes db
+    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}" #avoids name collisions
 
 #Creates insert Path framework
 def create_write_route(path: str, statement: str):
-    @app.post(path)
-    def route_handler(data: dict = Body(...)):  # receives the request body
+    @app.post(path) #registers thing
+    def route_handler(data: dict = Body(...)):  #data is the json body sent with the request, Body(...) makes it required
         db = SessionLocal()
         try:
-            result = db.execute(text(statement), data)
-            db.commit()
-            return {"result": "success"}
-        except Exception as e:
-            db.rollback()
-            raise HTTPException(status_code=500, detail=str(e))
+            result = db.execute(text(statement), data) #runs the INSERT, swapping the :placeholders in statement for the matching keys in data
+            db.commit() #saves the change permanently to the db (writes need this, reads dont)
+            return {"result": "success"} #tells the caller it worked
+        except Exception as e: #something went wrong (bad data, db error)
+            db.rollback() #undoes the half done change so the db stays clean
+            raise HTTPException(status_code=500, detail=str(e)) #sends back a 500 error with the reason
         finally:
-            db.close()
-    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
+            db.close() #closes db
+    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}" #avoids name collisions
 
 #Creates UPDATE Path framework
 def create_update_route(path: str, statement: str):
-    @app.put(path)
-    def route_handler(data: dict = Body(...)):
+    @app.put(path) #registers thing, put is the http method used for updating existing data
+    def route_handler(data: dict = Body(...)): #data is the json body holding the new values + the id of the row to change
         db = SessionLocal()
         try:
-            db.execute(text(statement), data)
-            db.commit()
+            db.execute(text(statement), data) #runs the UPDATE, swapping :placeholders for the keys in data
+            db.commit() #saves the change permanently
 
             return {
-                "result": "success"
+                "result": "success" #tells the caller it worked
             }
-        except Exception as e:
-            db.rollback()
-            raise HTTPException(status_code=500, detail=str(e))
+        except Exception as e: #something went wrong
+            db.rollback() #undoes the half done change
+            raise HTTPException(status_code=500, detail=str(e)) #sends back a 500 error with the reason
         finally:
-            db.close()
-    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
+            db.close() #closes db
+    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}" #avoids name collisions
 
 #Creates DELETE Path framework
 def create_delete_route(path: str, statement: str):
-    @app.delete(path)
-    def route_handler(data: dict = Body(...)):
+    @app.delete(path) #registers thing, delete is the http method used for removing data
+    def route_handler(data: dict = Body(...)): #data is the json body holding the id of the row to delete
         db = SessionLocal()
         try:
-            result = db.execute(text(statement), data)
-            db.commit()
+            result = db.execute(text(statement), data) #runs the DELETE, swapping :placeholders for the keys in data
+            db.commit() #saves the change permanently
 
             return {
-                "result": "success",
-                "rows_affected": result.rowcount
+                "result": "success", #tells the caller it worked
+                "rows_affected": result.rowcount #how many rows got deleted (0 means nothing matched the id)
             }
-        except Exception as e:
-            db.rollback()
-            raise HTTPException(status_code=500, detail=str(e))
+        except Exception as e: #something went wrong
+            db.rollback() #undoes the half done change
+            raise HTTPException(status_code=500, detail=str(e)) #sends back a 500 error with the reason
         finally:
-            db.close()
-    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
+            db.close() #closes db
+    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}" #avoids name collisions
 
 #Creates SELECT view
 def create_select_view(path: str, statement: str):
-    @app.get(path)
+    @app.get(path) #registers thing, get is the http method used for plain reading (view opens in browser by url)
     def route_handler():
         db = SessionLocal()
         try:
-            result = db.execute(text(statement))
-            return {"result": [dict(row._mapping) for row in result.fetchall()]}
+            result = db.execute(text(statement)) #runs the SQL against the db view and stores the reply in result
+            return {"result": [dict(row._mapping) for row in result.fetchall()]} #formats every row to python dict for the web ui
         finally:
-            db.close()
-    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
+            db.close() #closes db
+    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}" #avoids name collisions
 
 #Creates stored procedure
 def create_procedure_route(path: str, call_statement: str):
-    @app.post(path)
-    def route_handler(data: dict = Body(default={})):
+    @app.post(path) #registers thing
+    def route_handler(data: dict = Body(default={})): #data is the json body with the procedure arguments, Body(default={}) makes it optional (empty if none sent)
         db = SessionLocal()
         try:
-            result = db.execute(text(call_statement), data)
-            rows = result.fetchall()
-            db.commit()
-            return {"result": [dict(row._mapping) for row in rows]}
-        except Exception as e:
-            db.rollback()
-            raise HTTPException(status_code=500, detail=str(e))
+            result = db.execute(text(call_statement), data) #runs the CALL to the stored procedure, swapping :placeholders for the keys in data
+            rows = result.fetchall() #grabs whatever rows the procedure returned
+            db.commit() #saves any changes the procedure made
+            return {"result": [dict(row._mapping) for row in rows]} #formats every returned row to python dict for the web ui
+        except Exception as e: #something went wrong
+            db.rollback() #undoes the half done change
+            raise HTTPException(status_code=500, detail=str(e)) #sends back a 500 error with the reason
         finally:
-            db.close()
-    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}"
+            db.close() #closes db
+    route_handler.__name__ = f"handle_{path.strip('/').replace('/', '_')}" #avoids name collisions
+
+
+#be aware of danger big dense block of code ahead
+
 
 # All routes for SELECT all
 create_select_all("/select/benutzer",    "SELECT * FROM taskplaner.benutzer")

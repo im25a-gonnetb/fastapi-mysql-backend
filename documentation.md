@@ -26,4 +26,4 @@ FLUSH PRIVILEGES;
 ```
 
 
-uvicorn backend:app --reload
+uvicorn backend:app --reload        
